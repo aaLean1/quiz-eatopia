@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treinamento Eatopia</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #FF5722, #FFFFFF); /* Gradiente laranja e branco */
+            color: #000000; /* Texto preto */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            transition: background 0.5s, color 0.5s;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #333, #000); /* Gradiente escuro */
+            color: #FFFFFF; /* Texto branco */
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        body.dark-mode .quiz-container {
+            background: rgba(0, 0, 0, 0.8); /* Fundo escuro semi-transparente */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #FF5722; /* Laranja da EATOPIA */
+        }
+
+        .progress {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: inherit; /* Herda a cor do tema */
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1); /* Fundo da barra de progresso */
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background: #4CAF50; /* Verde para progresso */
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: inherit; /* Herda a cor do tema */
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .answer-btn {
+            background: #FF5722; /* Laranja para botões */
+            border: 2px solid #000000; /* Borda preta */
+            border-radius: 10px;
+            padding: 15px;
+            color: #FFFFFF; /* Texto branco */
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        body.dark-mode .answer-btn {
+            border-color: #FFFFFF; /* Borda branca no modo escuro */
+        }
+
+        .answer-btn:hover:not([disabled]) {
+            background: #E64A19; /* Laranja mais escuro ao passar o mouse */
+            transform: scale(1.05);
+        }
+
+        .answer-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .answer-btn.correct {
+            background: #4CAF50 !important; /* Verde para respostas corretas */
+        }
+
+        .answer-btn.incorrect {
+            background: #f44336 !important; /* Vermelho para respostas incorretas */
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .timer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FF5722; /* Laranja para o temporizador */
+        }
+
+        .results {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .results h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: inherit; /* Herda a cor do tema */
+        }
+
+        .results p {
+            font-size: 1.2rem;
+            color: inherit; /* Herda a cor do tema */
+        }
+
+        .restart-btn {
+            background: #FF5722; /* Laranja para botões de ação */
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: #FFFFFF; /* Texto branco */
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .restart-btn:hover {
+            background: #E64A19; /* Laranja mais escuro ao passar o mouse */
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-screen button {
+            background: #FF5722; /* Laranja para botões */
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: #FFFFFF; /* Texto branco */
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 5px;
+        }
+
+        .start-screen button:hover {
+            background: #E64A19; /* Laranja mais escuro ao passar o mouse */
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #FF5722;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .answers {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão de alternar tema -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+    <!-- Estrutura HTML -->
+    <div class="quiz-container" id="quiz-container">
+        <div class="start-screen" id="start-screen">
+            <h1>Treinamento Etopia</h1>
+            <p>Escolha sua senioridade:</p>
+            <button onclick="startQuiz('Junior')">Junior</button>
+            <button onclick="startQuiz('Pleno')">Pleno</button>
+            <button onclick="startQuiz('Sênior')">Sênior</button>
+        </div>
+        <div class="quiz-content" id="quiz-content" style="display: none;">
+            <h1>Treinamento</h1>
+            <div class="progress" id="progress">Pergunta 1 de 3</div>
+            <div class="progress-bar">
+                <div class="progress-bar-inner" id="progress-bar-inner"></div>
+            </div>
+            <div class="question" id="question">Pergunta aqui</div>
+            <div class="answers" id="answers">
+                <!-- Botões de resposta serão inseridos aqui via JavaScript -->
+            </div>
+            <div class="controls">
+                <div class="timer" id="timer">Tempo: 30s</div>
+                <button id="next-btn" onclick="nextQuestion()" disabled>Próxima</button>
+            </div>
+            <div class="results" id="results">
+                <h2>Quiz Concluído!</h2>
+                <p>Sua pontuação: <span id="final-score">0</span>/<span id="total-questions">0</span></p>
+                <p>Recorde: <span id="high-score">0</span></p>
+                <button class="restart-btn" onclick="restartQuiz()">Reiniciar Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script JavaScript -->
+    <script>
+        // Dados do Quiz (perguntas e respostas)
+        const questions = {
+            Junior: [
+                {
+                    question: "Qual é a forma correta?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Patteis", correct: false },
+                        { text: "Pattes", correct: false },
+                        { text: "Pattis", correct: false }
+                    ]
+                },
+                {
+                    question: "Quantas marcas nos temos?",
+                    answers: [
+                        { text: "7", correct: true },
+                        { text: "8", correct: false },
+                        { text: "9", correct: false },
+                        { text: "10", correct: false }
+                    ]
+                },
+                {
+                    question: "O henrique é a cara de qual marca?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Sushi Garden One", correct: false },
+                        { text: "Cioccolate", correct: false },
+                        { text: "Greentable", correct: false }
+                    ]
+                },
+                {
+                    question: "Quem é o Responsavel Geral da area de CX?",
+                    answers: [
+                        { text: "Rafael Almeida", correct: true },
+                        { text: "Rafael Pimenta", correct: false },
+                        { text: "Laura Oliveira", correct: false },
+                        { text: "Henrique ", correct: false }
+                    ]
+                }
+            ],
+            Pleno: [
+                {
+                    question: "Quem escreveu 'Dom Quixote'?",
+                    answers: [
+                        { text: "Miguel de Cervantes", correct: true },
+                        { text: "William Shakespeare", correct: false },
+                        { text: "Machado de Assis", correct: false },
+                        { text: "Gabriel García Márquez", correct: false }
+                    ]
+                }
+            ],
+            Sênior: [
+                {
+                    question: "Qual é o maior planeta do sistema solar?",
+                    answers: [
+                        { text: "Terra", correct: false },
+                        { text: "Júpiter", correct: true },
+                        { text: "Saturno", correct: false },
+                        { text: "Netuno", correct: false }
+                    ]
+                },
+                {
+                    question: "Qual é o menor país do mundo?",
+                    answers: [
+                        { text: "Vaticano", correct: true },
+                        { text: "Mônaco", correct: false },
+                        { text: "San Marino", correct: false },
+                        { text: "Liechtenstein", correct: false }
+                    ]
+                }
+            ]
+        };
+
+        // Variáveis de controle
+        let currentQuestion = 0;
+        let score = 0;
+        let timeLeft = 30;
+        let timer;
+        let currentDifficulty = "easy";
+
+        // Elementos do DOM
+        const startScreen = document.getElementById("start-screen");
+        const quizContent = document.getElementById("quiz-content");
+        const questionElement = document.getElementById("question");
+        const answersElement = document.getElementById("answers");
+        const timerElement = document.getElementById("timer");
+        const resultsElement = document.getElementById("results");
+        const finalScoreElement = document.getElementById("final-score");
+        const totalQuestionsElement = document.getElementById("total-questions");
+        const highScoreElement = document.getElementById("high-score");
+        const progressElement = document.getElementById("progress");
+        const progressBarInner = document.getElementById("progress-bar-inner");
+        const nextButton = document.getElementById("next-btn");
+
+        // Função para alternar entre modo claro e escuro
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+
+        // Função para obter o recorde da dificuldade atual
+        function getHighScore(difficulty) {
+            return localStorage.getItem(`highScore_${difficulty}`) || 0;
+        }
+
+        // Função para salvar o recorde da dificuldade atual
+        function saveHighScore(difficulty, score) {
+            localStorage.setItem(`highScore_${difficulty}`, score);
+        }
+
+        // Função para iniciar o Quiz
+        function startQuiz(difficulty) {
+            if (!questions[difficulty] || questions[difficulty].length === 0) {
+                alert("Nenhuma pergunta disponível para esta dificuldade.");
+                return;
+            }
+
+            currentDifficulty = difficulty;
+            startScreen.style.display = "none";
+            quizContent.style.display = "block";
+            currentQuestion = 0;
+            score = 0;
+            progressBarInner.style.width = "0"; // Reseta a barra de progresso
+            showQuestion();
+        }
+
+        // Função para exibir a pergunta atual
+        function showQuestion() {
+            const question = questions[currentDifficulty][currentQuestion];
+            questionElement.textContent = question.question;
+            answersElement.innerHTML = "";
+
+            question.answers.forEach(answer => {
+                const button = document.createElement("button");
+                button.classList.add("answer-btn");
+                button.textContent = answer.text;
+                if (answer.correct) {
+                    button.dataset.correct = answer.correct;
+                }
+                button.addEventListener("click", selectAnswer);
+                answersElement.appendChild(button);
+            });
+
+            progressElement.textContent = `Pergunta ${currentQuestion + 1} de ${questions[currentDifficulty].length}`;
+            progressBarInner.style.width = `${((currentQuestion + 1) / questions[currentDifficulty].length) * 100}%`;
+            nextButton.disabled = true; // Desabilita o botão "Próxima" até que uma resposta seja selecionada
+            startTimer();
+        }
+
+        // Função para selecionar uma resposta
+        function selectAnswer(e) {
+            const selectedButton = e.target;
+            const correct = selectedButton.dataset.correct === "true";
+
+            if (correct) {
+                score++;
+            }
+
+            Array.from(answersElement.children).forEach(button => {
+                button.disabled = true;
+                if (button.dataset.correct === "true") {
+                    button.classList.add("correct");
+                } else {
+                    button.classList.add("incorrect");
+                }
+            });
+
+            clearInterval(timer);
+            nextButton.disabled = false; // Habilita o botão "Próxima" após selecionar uma resposta
+        }
+
+        // Função para avançar para a próxima pergunta
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions[currentDifficulty].length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // Função para iniciar o temporizador
+        function startTimer() {
+            timeLeft = 30;
+            timerElement.textContent = `Tempo: ${timeLeft}s`;
+            clearInterval(timer); // Limpa qualquer temporizador existente
+            timer = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = `Tempo: ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    nextQuestion();
+                }
+            }, 1000); // 1000ms = 1s
+        }
+
+        // Função para finalizar o quiz
+        function endQuiz() {
+            questionElement.style.display = "none";
+            answersElement.style.display = "none";
+            document.querySelector(".controls").style.display = "none";
+            resultsElement.style.display = "block";
+
+            finalScoreElement.textContent = score;
+            totalQuestionsElement.textContent = questions[currentDifficulty].length;
+
+            const highScore = getHighScore(currentDifficulty);
+            if (score > highScore) {
+                saveHighScore(currentDifficulty, score);
+                highScoreElement.textContent = score;
+            } else {
+                highScoreElement.textContent = highScore;
+            }
+
+            // Volta para a tela inicial após 5 segundos
+            setTimeout(() => {
+                restartQuiz();
+            }, 5000);
+        }
+
+        // Função para reiniciar o quiz
+        function restartQuiz() {
+            startScreen.style.display = "block";
+            quizContent.style.display = "none";
+            resultsElement.style.display = "none";
+            questionElement.style.display = "block";
+            answersElement.style.display = "grid";
+            document.querySelector(".controls").style.display = "flex";
+        }
+    </script>
+</body>
+</html>
