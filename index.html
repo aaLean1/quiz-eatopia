@@ -553,7 +553,7 @@
         // Variáveis de controle
         let currentQuestion = 0;
         let score = 0;
-        let timeLeft = 30;
+        let timeLeft = 60;
         let timer;
         let currentDifficulty = "easy";
 
@@ -659,7 +659,7 @@
 
         // Função para iniciar o temporizador
         function startTimer() {
-            timeLeft = 30;
+            timeLeft = 60;
             timerElement.textContent = `Tempo: ${timeLeft}s`;
             clearInterval(timer); // Limpa qualquer temporizador existente
             timer = setInterval(() => {
