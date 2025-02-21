@@ -278,6 +278,98 @@
         const questions = {
             Junior: [
                 {
+                    question: "Um cliente reclama que o pedido veio errado. O que você faz?",
+                    answers: [
+                        { text: "A) Peço desculpas e digo que não podemos seguir com o envio.", correct: false },
+                        { text: "B) Verifico o erro, ofereço uma solução rápida e compenso o cliente se necessário. ", correct: true },
+                        { text: "C) Peço para o cliente entrar em contato com o iFood e resolver no suporte.", correct: false },
+                        { text: "D) Verifico o erro e deixo o item pendente. ", correct: false }
+                    ]
+                },
+                {
+                    question: "Qual é o prazo ideal para responder a uma solicitação do cliente no chat ou WhatsApp?",
+                    answers: [
+                        { text: "A) 2 minutos.", correct: false },
+                        { text: "B) Em até 5 minutos, se possível.", correct: false },
+                        { text: "C) 1 minuto.", correct: true },
+                        { text: "D) Assim que possível.", correct: false }
+                    ]
+                },
+                {
+                    question: "Um cliente relata que a comida chegou fria. Como agir?",
+                    answers: [
+                        { text: "A) Explicar que não temos controle sobre a temperatura do pedido, pois os entregadores são do iFood. ", correct: false },
+                        { text: "B) Pedir desculpas e oferecer um reenvio ou deixar pendente. ", correct: true },
+                        { text: "C) Ignorar a questão, pois a demora se deu no momento da entrega. ", correct: false },
+                        { text: "D) Pedir desculpas e reenviar o item imediatamente. ", correct: false }
+                    ]
+                },
+                {
+                    question: "O cliente entra no whatsApp pedindo o reembolso, como proceder?",
+                    answers: [
+                        { text: "A) Informar que somente o iFood pode reembolsar", correct: false },
+                        { text: "B) Realizar o cancelamento através do Gestor/Portal", correct: false },
+                        { text: "C) Mandar o passo a passo do cancelamento e aguardar o suporte do iFood", correct: true },
+                        { text: "D) Informar que o reembolso é feito pelo iFood e tentar reverter a situação", correct: false }
+                    ]
+                },                
+                {
+                    question: "Em caso de um pedido grande, feito direto no iFood, como seguir?",
+                    answers: [
+                        { text: "A) Contatar a loja e pedir total atenção", correct: false },
+                        { text: "B) Entrar em contato com o cliente e acompanhar a entrega ", correct: false },
+                        { text: "C) Mandar o cliente para o zendesk, acompanhar o pedido e se necessário chamar lalamove", correct: true },
+                        { text: "D) Mandar o cliente para o zendesk e informar a loja", correct: false }
+                    ]
+                },
+                {
+                    question: "Quais lojas fazem o madrugadão?",
+                    answers: [
+                        { text: "A) Rebouças - Bandeirantes - Brooklin - Tamboré - Melo Aves - Santana - Vila Mariana - Campinas ", correct: false },
+                        { text: "B) Bandeirantes - Campinas - Vila Mariana - Rebouças - Tatuapé - Santo André - Tamboré", correct: false },
+                        { text: "C) Brooklin - Rebouças - Santo André - Tatuapé - Vila Mariana - Santana - Campinas", correct: false },
+                        { text: "D) Rebouças - Tatuapé - Bandeirantes - Vila Mariana - Santana - Brooklin - Santo André ", correct: true }
+                    ]
+                },
+                {
+                    question: "Qual lanche no Patties tem  lâmina azul? ",
+                    answers: [
+                        { text: "A) Cheesebacon ", correct: false },
+                        { text: "B) Cheesesalada ", correct: false },
+                        { text: "C) Cheeseburger ", correct: true },
+                        { text: "D) Vege ", correct: false }
+                    ]
+                },
+                {
+                    question: "Quantas peças tem o sashimi?",
+                    answers: [
+                        { text: "A) 6", correct: false },
+                        { text: "B) 4", correct: false },
+                        { text: "C) 5", correct: true },
+                        { text: "D) 7", correct: false }
+                    ]
+                },                
+                {
+                    question: "Do que é composto o combo queridinhos?",
+                    answers: [
+                        { text: "A) Um lanche - bebida - fritas  ", correct: false },
+                        { text: "B) Bite - Um lanche - bebida - fritas", correct: false },
+                        { text: "C) Dois lanches - bebida - fritas ", correct: true },
+                        { text: "D) Fritas - Dois lanches - bites e fritas ", correct: false }
+                    ]
+                },
+                {
+                    question: "Qual a diferença da maionese Garden para a maionese tradicional no Sushi Temaki ",
+                    answers: [
+                        { text: "A) A maionese Garden é light", correct: false },
+                        { text: "B) A maionese tradicional é a hellmanns e a Garden é fabricada na nossa cozinha", correct: false },
+                        { text: "C) A maionese Garden contém shoyu na composição ", correct: false },
+                        { text: "D) A maionese Garden contém manga na composição", correct: true }
+                    ]
+                }
+            ],
+            Pleno: [
+                {
                     question: "Qual é a forma correta?",
                     answers: [
                         { text: "Patties", correct: true },
@@ -312,36 +404,147 @@
                         { text: "Laura Oliveira", correct: false },
                         { text: "Henrique ", correct: false }
                     ]
-                }
-            ],
-            Pleno: [
-                {
-                    question: "Quem escreveu 'Dom Quixote'?",
+                },                {
+                    question: "Qual é a forma correta?",
                     answers: [
-                        { text: "Miguel de Cervantes", correct: true },
-                        { text: "William Shakespeare", correct: false },
-                        { text: "Machado de Assis", correct: false },
-                        { text: "Gabriel García Márquez", correct: false }
+                        { text: "Patties", correct: true },
+                        { text: "Patteis", correct: false },
+                        { text: "Pattes", correct: false },
+                        { text: "Pattis", correct: false }
+                    ]
+                },
+                {
+                    question: "Quantas marcas nos temos?",
+                    answers: [
+                        { text: "7", correct: true },
+                        { text: "8", correct: false },
+                        { text: "9", correct: false },
+                        { text: "10", correct: false }
+                    ]
+                },
+                {
+                    question: "O henrique é a cara de qual marca?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Sushi Garden One", correct: false },
+                        { text: "Cioccolate", correct: false },
+                        { text: "Greentable", correct: false }
+                    ]
+                },
+                {
+                    question: "Quem é o Responsavel Geral da area de CX?",
+                    answers: [
+                        { text: "Rafael Almeida", correct: true },
+                        { text: "Rafael Pimenta", correct: false },
+                        { text: "Laura Oliveira", correct: false },
+                        { text: "Henrique ", correct: false }
+                    ]
+                },                {
+                    question: "O henrique é a cara de qual marca?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Sushi Garden One", correct: false },
+                        { text: "Cioccolate", correct: false },
+                        { text: "Greentable", correct: false }
+                    ]
+                },
+                {
+                    question: "Quem é o Responsavel Geral da area de CX?",
+                    answers: [
+                        { text: "Rafael Almeida", correct: true },
+                        { text: "Rafael Pimenta", correct: false },
+                        { text: "Laura Oliveira", correct: false },
+                        { text: "Henrique ", correct: false }
                     ]
                 }
             ],
             Sênior: [
                 {
-                    question: "Qual é o maior planeta do sistema solar?",
+                    question: "Qual é a forma correta?",
                     answers: [
-                        { text: "Terra", correct: false },
-                        { text: "Júpiter", correct: true },
-                        { text: "Saturno", correct: false },
-                        { text: "Netuno", correct: false }
+                        { text: "Patties", correct: true },
+                        { text: "Patteis", correct: false },
+                        { text: "Pattes", correct: false },
+                        { text: "Pattis", correct: false }
                     ]
                 },
                 {
-                    question: "Qual é o menor país do mundo?",
+                    question: "Quantas marcas nos temos?",
                     answers: [
-                        { text: "Vaticano", correct: true },
-                        { text: "Mônaco", correct: false },
-                        { text: "San Marino", correct: false },
-                        { text: "Liechtenstein", correct: false }
+                        { text: "7", correct: true },
+                        { text: "8", correct: false },
+                        { text: "9", correct: false },
+                        { text: "10", correct: false }
+                    ]
+                },
+                {
+                    question: "O henrique é a cara de qual marca?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Sushi Garden One", correct: false },
+                        { text: "Cioccolate", correct: false },
+                        { text: "Greentable", correct: false }
+                    ]
+                },
+                {
+                    question: "Quem é o Responsavel Geral da area de CX?",
+                    answers: [
+                        { text: "Rafael Almeida", correct: true },
+                        { text: "Rafael Pimenta", correct: false },
+                        { text: "Laura Oliveira", correct: false },
+                        { text: "Henrique ", correct: false }
+                    ]
+                },                {
+                    question: "Qual é a forma correta?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Patteis", correct: false },
+                        { text: "Pattes", correct: false },
+                        { text: "Pattis", correct: false }
+                    ]
+                },
+                {
+                    question: "Quantas marcas nos temos?",
+                    answers: [
+                        { text: "7", correct: true },
+                        { text: "8", correct: false },
+                        { text: "9", correct: false },
+                        { text: "10", correct: false }
+                    ]
+                },
+                {
+                    question: "O henrique é a cara de qual marca?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Sushi Garden One", correct: false },
+                        { text: "Cioccolate", correct: false },
+                        { text: "Greentable", correct: false }
+                    ]
+                },
+                {
+                    question: "Quem é o Responsavel Geral da area de CX?",
+                    answers: [
+                        { text: "Rafael Almeida", correct: true },
+                        { text: "Rafael Pimenta", correct: false },
+                        { text: "Laura Oliveira", correct: false },
+                        { text: "Henrique ", correct: false }
+                    ]
+                },                {
+                    question: "O henrique é a cara de qual marca?",
+                    answers: [
+                        { text: "Patties", correct: true },
+                        { text: "Sushi Garden One", correct: false },
+                        { text: "Cioccolate", correct: false },
+                        { text: "Greentable", correct: false }
+                    ]
+                },
+                {
+                    question: "Quem é o Responsavel Geral da area de CX?",
+                    answers: [
+                        { text: "Rafael Almeida", correct: true },
+                        { text: "Rafael Pimenta", correct: false },
+                        { text: "Laura Oliveira", correct: false },
+                        { text: "Henrique ", correct: false }
                     ]
                 }
             ]
